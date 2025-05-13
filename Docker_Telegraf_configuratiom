@@ -1,0 +1,89 @@
+# ------------------------------
+# Telegraf Agent 全局配置
+# ------------------------------
+[agent]
+  interval = "20s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  hostname = ""
+  omit_hostname = false
+
+# ------------------------------
+# 单个 MQTT 输入
+# ------------------------------
+[[inputs.mqtt_consumer]]
+  servers = ["tcp://138.100.58.174:1883"]
+  topics = [
+    "telegraf/host01/cpu",
+    "telegraf/+/mem",
+    "sensors/#",
+    "mri/temperatures",
+    "test/message",
+  ]
+  data_format = "json"
+
+  ## 将所有可能的字符串字段都声明一遍
+  json_string_fields = [
+    "a", "b", "c1", "c2", "c3", "c4", "c5",
+    "d1", "d2", "d3", "d4", "d5",
+    "status", "Region_1", "Region_2",
+    "Region_3_1", "Region_3_2", "Region_3_3"
+  ]
+
+  # (可选) 如果需要把 topic 存为 tag：
+  # topic_tag = "topic"
+
+  # QoS、认证、TLS 等配置按需打开
+  # qos = 0
+  # username = "telegraf"
+  # password = "metricsmetricsmetricsmetrics"
+  # tls_ca = "/etc/telegraf/ca.pem"
+  # tls_cert = "/etc/telegraf/cert.pem"
+  # tls_key = "/etc/telegraf/key.pem"
+
+# ------------------------------
+# 输出到 Machine_System_Data 桶：仅保留 a–d5 这些字段
+# ------------------------------
+[[outputs.influxdb_v2]]
+  urls = ["https://us-east-1-1.aws.cloud2.influxdata.com"]
+  token = "$INFLUX_TOKEN_SYSTEM"
+  organization = "TEST"
+  bucket = "Machine_System_Data"
+
+  ## 只输出这些字段
+  fieldpass = [
+    "a", "b", "c1", "c2", "c3", "c4", "c5",
+    "d1", "d2", "d3", "d4", "d5"
+  ]
+
+  # (可选) 超时、压缩、TLS 配置
+  # timeout = "5s"
+  # content_encoding = "gzip"
+  # insecure_skip_verify = false
+
+# ------------------------------
+# 输出到 Sensor_Data 桶：仅保留 status & Region_* 字段
+# ------------------------------
+[[outputs.influxdb_v2]]
+  urls = ["https://us-east-1-1.aws.cloud2.influxdata.com"]
+  token = "$INFLUX_TOKEN_SENSOR"
+  organization = "TEST"
+  bucket = "Sensor_Data"
+
+  ## 只输出这些字段
+  fieldpass = [
+    "status",
+    "Region_1", "Region_2",
+    "Region_3_1", "Region_3_2", "Region_3_3"
+  ]
+
+  # (可选) 超时、压缩、TLS 配置
+  # timeout = "5s"
+  # content_encoding = "gzip"
+  # insecure_skip_verify = false
+
