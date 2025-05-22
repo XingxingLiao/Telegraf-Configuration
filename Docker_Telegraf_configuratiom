@@ -14,7 +14,7 @@
   omit_hostname = false
 
 # ------------------------------
-# 单个 MQTT 输入
+# 第一个 MQTT 输入
 # ------------------------------
 [[inputs.mqtt_consumer]]
   servers = ["tcp://138.100.58.174:1883"]
@@ -36,6 +36,9 @@
   ]
 
 
+# ------------------------------
+# 第二个 MQTT 输入
+# ------------------------------
 [[inputs.mqtt_consumer]]
   servers = ["ssl://0eb00aca75ab4f56b36f74924b54b76b.s1.eu.hivemq.cloud:8883"]
   topics = [
@@ -48,8 +51,8 @@
   ]
 
   # MQTT 认证
-  username = "adrunio"
-  password = "Admin123"
+  username = ""
+  password = ""
 
   # (可选) 如果需要把 topic 存为 tag：
   # topic_tag = "topic"
