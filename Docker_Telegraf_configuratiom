@@ -35,6 +35,22 @@
     "Region_3_1", "Region_3_2", "Region_3_3"
   ]
 
+
+[[inputs.mqtt_consumer]]
+  servers = ["ssl://0eb00aca75ab4f56b36f74924b54b76b.s1.eu.hivemq.cloud:8883"]
+  topics = [
+    "test/topic",
+ 
+  ]
+  data_format = "json"
+  json_string_fields = [
+    "x", "y", "z", "time","StateCode",
+  ]
+
+  # MQTT 认证
+  username = "adrunio"
+  password = "Admin123"
+
   # (可选) 如果需要把 topic 存为 tag：
   # topic_tag = "topic"
 
@@ -51,7 +67,7 @@
 # ------------------------------
 [[outputs.influxdb_v2]]
   urls = ["https://us-east-1-1.aws.cloud2.influxdata.com"]
-  token = "$INFLUX_TOKEN_SYSTEM"
+  token = "$INFLUX_TOKEN"
   organization = "TEST"
   bucket = "Machine_System_Data"
 
@@ -71,7 +87,7 @@
 # ------------------------------
 [[outputs.influxdb_v2]]
   urls = ["https://us-east-1-1.aws.cloud2.influxdata.com"]
-  token = "$INFLUX_TOKEN_SENSOR"
+  token = "$INFLUX_TOKEN"
   organization = "TEST"
   bucket = "Sensor_Data"
 
@@ -79,11 +95,15 @@
   fieldpass = [
     "status",
     "Region_1", "Region_2",
-    "Region_3_1", "Region_3_2", "Region_3_3"
+    "Region_3_1", "Region_3_2", "Region_3_3",
+     "x", "y", "z", "time","StateCode"
   ]
 
   # (可选) 超时、压缩、TLS 配置
   # timeout = "5s"
   # content_encoding = "gzip"
   # insecure_skip_verify = false
+
+
+oLNPraQ2vcePvEKbBsJlLVtDK1VGqLTG4RcmLQxp4swFHiw36cQPLJKyHVZw2Qg7EEg9I5xDZngm8uzzbvn7cQ==
 
