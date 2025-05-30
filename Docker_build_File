@@ -1,8 +1,8 @@
   docker run -d \
   --name telegraf \
   -v /home/xingxin.liao/telegraf-config/telegraf.conf:/etc/telegraf/telegraf.conf:ro \
-  -e INFLUX_TOKEN_SYSTEM="eqBS-h4K_QypxMDHxgUlfuXW5LU4wen0Hke6oBlDwvlWX8YmEE1nDVouscn5HC7btj9KXuNxIWtEx5g_BHsq9Q==" \
-  -e INFLUX_TOKEN_SENSOR="oLNPraQ2vcePvEKbBsJlLVtDK1VGqLTG4RcmLQxp4swFHiw36cQPLJKyHVZw2Qg7EEg9I5xDZngm8uzzbvn7cQ==" \
+  -e INFLUX_TOKEN_SYSTEM="YbGq19_dA8dfO3PGWPZZpkQhlBXoN99admSn27msldJaBDUIPT6H--C9e4TrTspnJAO3XJd43_2IwuN3lmZ5Bw==" \
+  -e INFLUX_TOKEN_SENSOR="bpuTxPWQtnp0C9eZXVpKHITWdUu1tRDn2Kr4jg4RTyaDuihK4F-laX8Ot6moTPAVfcOYC5QJVu8sJSITwnaZgg==" \
   telegraf \
   --config /etc/telegraf/telegraf.conf \
   --watch-config poll \
